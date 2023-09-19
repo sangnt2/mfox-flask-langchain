@@ -32,8 +32,13 @@ def kb_retrieve(q=''):
 
     vectorStore = Chroma.from_documents(documents=documents, embedding=embedding)
 
-    retrieved_docs = vectorStore.similarity_search(query=q, k=1)
+    retrieved_docs = vectorStore.similarity_search_with_relevance_scores(query=q, k=1)
 
-    most_relevant = retrieved_docs[0]
+    most_relevant = retrieved_docs[0][0]
+    most_relevant_score = float(retrieved_docs[0][1])
 
-    return most_relevant.page_content
+    if (most_relevant_score > 0.8):
+        return most_relevant.page_content
+    
+    return ''
+    

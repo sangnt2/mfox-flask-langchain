@@ -14,6 +14,6 @@ def retrieve_kb():
             q = request.form.get('q')
         
         result = kb_retrieve(q=q)
-        return jsonify(result)
+        return jsonify({"code": 200, "data":result, "status": "ok"})
     except:
-        return jsonify({"Status":"Failure --- some error occured"})
+        return jsonify({"code":500,"status":"Failure --- some error occured"})
