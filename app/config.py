@@ -16,4 +16,4 @@ class Config:
     MFOX_DAT_PW = get_env_variable("MFOX_DAT_PW")
     MFOX_DAT_DBNAME = get_env_variable("MFOX_DAT_DBNAME")
     MFOX_DAT_PORT = get_env_variable("MFOX_DAT_PORT")
-    DATABASE_DNS = "host='localhost' port='{port}' dbname='{db}' user='{user}' password='{pw}'".format(user=MFOX_DAT_USR,pw=MFOX_DAT_PW,db=MFOX_DAT_DBNAME,port=MFOX_DAT_PORT)
+    DATABASE_DNS = "host='{host}' port='{port}' dbname='{db}' user='{user}' password='{pw}'".format(host=MFOX_DAT_HOST, port=MFOX_DAT_PORT, user=MFOX_DAT_USR, db=MFOX_DAT_DBNAME, pw=MFOX_DAT_PW)

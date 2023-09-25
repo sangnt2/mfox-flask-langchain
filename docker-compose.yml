@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  flask-langchain:
+    image: sangnt2/metafox-langchain-python:v0.0.1-dev
+    environment:
+      - MFOX_DAT_PORT=${MFOX_DAT_PORT}
+      - MFOX_DAT_HOST=${MFOX_DAT_HOST}
+      - MFOX_DAT_DBNAME=${MFOX_DAT_DBNAME}
+      - MFOX_DAT_USR=${MFOX_DAT_USR}
+      - MFOX_DAT_PW=${MFOX_DAT_PW}
+    ports:
+      - "5001:${PORT}"
+    restart: unless-stopped
