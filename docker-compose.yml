@@ -2,13 +2,16 @@ version: "3"
 
 services:
   flask-langchain:
-    image: sangnt2/metafox-langchain-python:v0.0.1-dev
+    # image: sangnt2/metafox-langchain-python:v0.0.1-dev
+    build: ./
     environment:
-      - MFOX_DAT_PORT=${MFOX_DAT_PORT}
-      - MFOX_DAT_HOST=${MFOX_DAT_HOST}
-      - MFOX_DAT_DBNAME=${MFOX_DAT_DBNAME}
-      - MFOX_DAT_USR=${MFOX_DAT_USR}
-      - MFOX_DAT_PW=${MFOX_DAT_PW}
+      - OPENAI_KEY=${OPENAI_KEY}
+      - PORT=${PORT}
+      - DEBUG=${DEBUG}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
+      - SECRET_KEY=${SECRET_KEY}
     ports:
-      - "5001:${PORT}"
+      - "5555:${PORT}"
+    volumes:
+      - ./:/app
     restart: unless-stopped

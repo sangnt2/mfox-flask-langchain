@@ -10,10 +10,6 @@ def get_env_variable(name):
         raise Exception(message)
 
 class Config:
+    SECRET_KEY = get_env_variable('SECRET_KEY')
     OPENAI_KEY = get_env_variable('OPENAI_KEY')
-    MFOX_DAT_HOST = get_env_variable("MFOX_DAT_HOST")
-    MFOX_DAT_USR = get_env_variable("MFOX_DAT_USR")
-    MFOX_DAT_PW = get_env_variable("MFOX_DAT_PW")
-    MFOX_DAT_DBNAME = get_env_variable("MFOX_DAT_DBNAME")
-    MFOX_DAT_PORT = get_env_variable("MFOX_DAT_PORT")
-    DATABASE_DNS = "host='{host}' port='{port}' dbname='{db}' user='{user}' password='{pw}'".format(host=MFOX_DAT_HOST, port=MFOX_DAT_PORT, user=MFOX_DAT_USR, db=MFOX_DAT_DBNAME, pw=MFOX_DAT_PW)
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')

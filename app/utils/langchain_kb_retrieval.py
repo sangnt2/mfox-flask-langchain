@@ -3,21 +3,18 @@ from langchain.schema.document import Document
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.vectorstores import Chroma
-from app.utils import postgre_retrieval
 from app.config import Config
+from app.utils import db_retrieval
 
 def get_embedding(type = '', model_name = ''):
     if type == 'hugginface_instruct':
         embedding = HuggingFaceInstructEmbeddings(model_name=model_name)
     else:
-        openai_key = postgre_retrieval.openai_key_query()
-        if openai_key is None:
-            openai_key = Config.OPENAI_KEY
-        embedding = OpenAIEmbeddings(openai_api_key=openai_key)
+        embedding = OpenAIEmbeddings(openai_api_key=Config.OPENAI_KEY)
     return embedding
 
 def kb_retrieve(q=''):
-    kb = postgre_retrieval.kb_query()
+    kb = db_retrieval.retrieve_chatgpt_kb()
    
     if kb == '':
         return kb
@@ -38,7 +35,7 @@ def kb_retrieve(q=''):
 
     vector_store = Chroma.from_documents(documents=documents, embedding=embedding)
 
-    retrieved_docs = vector_store.similarity_search_with_relevance_scores(query=q, k=5)
+    retrieved_docs = vector_store.similarity_search_with_relevance_scores(query=q)
 
     most_relevant = retrieved_docs[0][0]
     most_relevant_score = float(retrieved_docs[0][1])
